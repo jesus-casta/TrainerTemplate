@@ -1,0 +1,8 @@
+package es.trainertemplate;
+import org.springframework.boot.CommandLineRunner;import org.springframework.stereotype.Component;import org.springframework.beans.factory.annotation.Value;import java.util.*;import es.trainertemplate.Model.*;
+@Component public class SeedCatalog implements CommandLineRunner {
+ private final TrainerService service;private final String owner;SeedCatalog(TrainerService s,@Value("${trainer.username:trainer}")String o){service=s;owner=o;}
+ public void run(String...args){if(!service.list(owner).isEmpty())return;
+ String[][] rows={{"Press banca","Empuje horizontal","Barra y banco","Pectoral,Tríceps"},{"Sentadilla","Dominante de rodilla","Barra y rack","Cuádriceps,Glúteos"},{"Peso muerto","Bisagra de cadera","Barra","Glúteos,Isquiosurales"},{"Seal row","Tirón horizontal","Barra y banco","Espalda"},{"Press militar","Empuje vertical","Barra","Deltoides,Tríceps"},{"Jalón al pecho","Tirón vertical","Polea","Dorsal,Bíceps"},{"Sentadilla búlgara","Dominante de rodilla","Mancuernas y banco","Cuádriceps,Glúteos"},{"Peso muerto rumano","Bisagra de cadera","Barra","Isquiosurales,Glúteos"},{"Curl de bíceps","Aislamiento","Barra","Bíceps"},{"Extensión de tríceps","Aislamiento","Polea","Tríceps"},{"Elevaciones laterales","Aislamiento","Mancuernas","Deltoides"},{"Rueda abdominal","Core","Rueda","Abdominales"}};
+ for(var row:rows)service.save(owner,null,new Envelope("exercise",Map.of("name",row[0],"pattern",row[1],"equipment",row[2],"loadConvention",row[0].equals("Rueda abdominal")?"BODYWEIGHT":row[2].startsWith("Mancuernas")?"PER_DUMBBELL_KG":"TOTAL_KG","muscles",List.of(row[3].split(",")),"notes","Catálogo inicial editable. Define tu variante antes de comparar resultados."),null));}
+}

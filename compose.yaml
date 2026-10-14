@@ -1,0 +1,29 @@
+services:
+  trainer:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      TRAINER_USERNAME: ${TRAINER_USERNAME:-trainer}
+      TRAINER_PASSWORD: ${TRAINER_PASSWORD:?Define TRAINER_PASSWORD}
+      DB_URL: jdbc:postgresql://db:5432/trainer
+      DB_USER: trainer
+      DB_PASSWORD: ${DB_PASSWORD:?Define DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: trainer
+      POSTGRES_USER: trainer
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Define DB_PASSWORD}
+    volumes:
+      - trainer_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trainer"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  trainer_data:

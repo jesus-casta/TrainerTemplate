@@ -28,7 +28,7 @@ Para PostgreSQL: configura `DB_URL`, `DB_USER` y `DB_PASSWORD`. Para Docker, cop
 
 Esta entrega es una base funcional de uso individual, no una implementación completa de todos los requisitos. Hay un usuario configurado por instalación; no hay alta de usuarios, vinculación de entrenadores ni proveedor IA conectado. La API aplica propiedad de registros, autenticación Basic y CSRF. El acceso remoto requiere HTTPS.
 
-La referencia de 1RM y las subidas de esta primera interfaz son globales por programa; las reglas por ejercicio, progresiones condicionales, fases, rangos de repeticiones, duraciones, superseries, sustituciones durante la sesión, calendario mensual, filtros temporales, importación ODS/XLSX y auditoría completa están pendientes. No se presenta el índice stress de la hoja como una medida validada de fatiga.
+El 1RM puede especificarse por serie, con una referencia predeterminada del programa. Las subidas de esta primera interfaz son globales por programa; las progresiones independientes por ejercicio, progresiones condicionales, fases, rangos de repeticiones, duraciones, superseries, sustituciones durante la sesión, calendario mensual, filtros temporales, importación ODS/XLSX y auditoría completa están pendientes. No se presenta el índice stress de la hoja como una medida validada de fatiga.
 
 Las sesiones guardan una copia de la prescripción al programarlas. Las ediciones del programa no alteran esas copias. Los cambios de registros usan control de versión optimista; todavía no existe un registro completo de versiones anteriores. El RPE histórico por bloque no se convierte en RPE por serie.
 
